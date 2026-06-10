@@ -296,5 +296,5 @@ A SOC analyst seeing these alerts should:
 ---
 
 ### Screenshots
-![Suricata Port Scanning Alert](images/Suricata_port_scaning_alert.png)
-![Suricata Detection Detail](images/Suricata_detection.png)
+![Suricata Port Scanning Alert](images/Suricata%20port%20scaning%20alert.png)
+![Suricata Detection Detail](images/Suricata%20detection.png)
