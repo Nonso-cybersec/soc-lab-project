@@ -133,7 +133,3 @@ Add screenshots of:
 - Endpoint log monitoring (Kali & Windows)
 - Security event correlation in Wazuh SIEM
 
-## Author
-
-Scholes Marshal
-Cybersecurity Analyst | SOC Analyst Enthusiast
