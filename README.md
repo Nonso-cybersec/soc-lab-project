@@ -116,9 +116,12 @@ All agents connected and reporting successfully.
 * Custom Wazuh rules
 * Threat hunting exercises
 
-## Screenshots
+### Wazuh Dashboard - Active Agents
 
-Add screenshots of:
+![Wazuh Dashboard](images/wazuh.png)
+
+This shows successful connection of Windows and Kali agents to the Wazuh SIEM.
+
 
 * Wazuh Dashboard
 * Agent Summary
