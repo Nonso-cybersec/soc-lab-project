@@ -23,7 +23,7 @@ This project demonstrates a complete SOC environment using Wazuh SIEM to monitor
 | Ubuntu 24.04 | Wazuh Manager, Indexer, Dashboard       |
 | Windows Server 2019     | Monitored Endpoint (Wazuh Agent)        |
 | Kali Linux   | Attacker Machine and Monitored Endpoint |
-| DevGru VM    | Additional Lab Environment              |
+
 
 ### Network Configuration
 
