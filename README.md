@@ -160,8 +160,12 @@ The goal is to simulate stealth techniques and observe how a SIEM detects anomal
 Switch to root and update system packages:
 
 ```bash
+
 sudo -i
+
 apt update
+
+```
 
 ## Detection Results — June 10, 2026
 
