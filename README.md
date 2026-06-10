@@ -146,6 +146,7 @@ The goal is to simulate stealth techniques and observe how a SIEM detects anomal
 
 ---
 
+
 ## Lab Environment
 
 - Ubuntu Linux (Wazuh Agent installed)
@@ -161,3 +162,38 @@ Switch to root and update system packages:
 ```bash
 sudo -i
 apt update
+
+## Detection Results — June 10, 2026
+
+### Alert Triggered
+After loading Diamorphine and hiding rsyslogd (PID 812),
+Wazuh rootcheck detected the hidden process within minutes.
+
+### Alert Details
+- **Rule ID:** 521
+- **Rule Level:** 11 (High Severity)
+- **MITRE ATT&CK:** T1014 — Rootkit
+- **Tactic:** Defense Evasion
+- **Detection Message:** Process '812' hidden from /proc. 
+  Possible kernel level rootkit.
+- **Fired Times:** 4
+
+### How Wazuh Detected It
+Wazuh rootcheck independently scans /proc and compares 
+what the kernel reports against actual running processes.
+A mismatch between the two = hidden process = rootkit alert.
+
+### Key Takeaway
+Kernel rootkits hide from the OS itself but cannot hide 
+from a SIEM doing independent out-of-band verification.
+This is why endpoint monitoring is critical — the OS 
+cannot be trusted when compromised at kernel level.
+
+### Wazuh Dashboard - Active Agents
+![Wazuh Dashboard](images/wazuh-dashboard-agents.png)
+
+### Rootkit Detection Alert
+![Rootkit Detection](images/rootkit.png)
+
+### Kernel Rootkit Logs
+![Kernel Rootkit Logs](images/kernel%20Rootkit%20Logs.png)
