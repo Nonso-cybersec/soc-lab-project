@@ -201,3 +201,100 @@ cannot be trusted when compromised at kernel level.
 
 ### Kernel Rootkit Logs
 ![Kernel Rootkit Logs](images/kernel%20Rootkit%20Logs.png)
+
+## Suricata IDS Integration with Wazuh SIEM
+
+### Why I Installed Suricata
+
+Wazuh alone monitors host-level activity — log files, 
+processes, file changes. But it cannot see raw network 
+traffic. A threat actor scanning my network, probing 
+ports, or sending malicious packets would be invisible 
+to Wazuh alone.
+
+Suricata fills that gap. It sits on the network interface 
+and inspects every packet entering and leaving the machine. 
+Together, Wazuh and Suricata give full visibility:
+- Suricata watches the network layer
+- Wazuh watches the host layer
+
+No blind spots.
+
+---
+
+### Installation & Rules
+
+Installed Suricata 7.0.3 on Ubuntu (Wazuh Manager host).
+
+Used suricata-update to manage the Emerging Threats 
+Open ruleset — 50,571 rules covering known attack 
+patterns, malware signatures, and suspicious behaviour.
+
+Key configuration:
+- HOME_NET: 10.0.2.4 (Ubuntu — the protected asset)
+- EXTERNAL_NET: any (everything else, including Kali)
+- Interface: enp0s3
+- Alert log: /var/log/suricata/eve.json
+
+Wazuh reads eve.json in real time — every Suricata 
+alert immediately appears in the Wazuh dashboard.
+
+---
+
+### Attack Simulation — Nmap Port Scan
+
+**What I did:**
+From Kali Linux (10.0.2.15) I ran an Nmap SYN scan 
+against Ubuntu (10.0.2.4):
+
+```bash
+sudo nmap -sS 10.0.2.4
+```
+
+**What Suricata detected:**
+- ET SCAN Suspicious inbound to MySQL port 3306
+- ET SCAN Suspicious inbound to MSSQL port 1433
+- ET SCAN Suspicious inbound to PostgreSQL port 5432
+- ET SCAN Suspicious inbound to Oracle SQL port 1521
+- ET SCAN Potential VNC Scan 5800-5820
+
+**Why this is an IOC (Indicator of Compromise)**
+
+Database ports (3306, 1433, 5432, 1521) should never 
+be accessible from external or untrusted sources. In a 
+production environment, only the application server 
+communicates with the database — never an end user 
+or external machine.
+
+An external source scanning these ports signals:
+- Active reconnaissance by a threat actor
+- Searching for exposed databases with weak credentials
+- Preparation for data exfiltration or ransomware
+
+This is the Intelligence Gathering phase of PTES — 
+the attacker is mapping the target before striking.
+
+A SOC analyst seeing these alerts should:
+1. Identify the source IP (10.0.2.15 — Kali)
+2. Check if that IP has made other suspicious connections
+3. Determine if any database ports are actually open
+4. Block the source IP at the firewall immediately
+5. Escalate if the IP is external/unknown
+
+---
+
+### What I Learned
+
+- Suricata detects network-level threats Wazuh cannot see
+- eve.json is Suricata's structured alert log — Wazuh 
+  reads it natively
+- Database port scanning is a high-confidence IOC — 
+  legitimate users never touch those ports directly
+- The Suricata + Wazuh combination creates a complete 
+  detection pipeline from network to host
+
+---
+
+### Screenshots
+![Suricata Port Scanning Alert](images/Suricata_port_scaning_alert.png)
+![Suricata Detection Detail](images/Suricata_detection.png)
