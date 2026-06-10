@@ -136,7 +136,7 @@ This shows successful connection of Windows and Kali agents to the Wazuh SIEM.
 - Endpoint log monitoring (Kali & Windows)
 - Security event correlation in Wazuh SIEM
 
-- ## # SOC Attack Simulation: Hidden Process Detection (Rootkit Emulation)
+- ## SOC Attack Simulation: Hidden Process Detection
 
 ## Objective
 
