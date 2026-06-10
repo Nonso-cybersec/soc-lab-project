@@ -136,3 +136,28 @@ This shows successful connection of Windows and Kali agents to the Wazuh SIEM.
 - Endpoint log monitoring (Kali & Windows)
 - Security event correlation in Wazuh SIEM
 
+- ## # SOC Attack Simulation: Hidden Process Detection (Rootkit Emulation)
+
+## Objective
+
+This project demonstrates how hidden processes and rootkit-like behavior can be detected using Wazuh rootcheck monitoring on a Linux endpoint.
+
+The goal is to simulate stealth techniques and observe how a SIEM detects anomalous activity.
+
+---
+
+## Lab Environment
+
+- Ubuntu Linux (Wazuh Agent installed)
+- Wazuh Manager (SIEM Dashboard)
+- Kali Linux (optional attacker VM)
+
+---
+
+## Step 1: System Preparation (Ubuntu Endpoint)
+
+Switch to root and update system packages:
+
+```bash
+sudo -i
+apt update
