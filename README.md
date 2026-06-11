@@ -345,5 +345,5 @@ antivirus engine recognises as a test threat.
 - Response: Automated deletion via active response
 
 ### Screenshots
-![VirusTotal EICAR Analysis](images/Virus_Total_-_Eicar_Analysis.png)
-![Wazuh VirusTotal Integration](images/Virus_Total_-_Wazuh_Integration.png)
+![VirusTotal EICAR Analysis](images/Virus%20Total%20-%20Eicar%20Analysis.png)
+![Wazuh VirusTotal Integration](images/Virus%20Total%20-%20Wazuh%20Integration.png)
