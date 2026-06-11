@@ -298,3 +298,52 @@ A SOC analyst seeing these alerts should:
 ### Screenshots
 ![Suricata Port Scanning Alert](images/Suricata%20port%20scaning%20alert.png)
 ![Suricata Detection Detail](images/Suricata%20detection.png)
+
+
+## VirusTotal Active Response Integration
+
+### Why I Built This
+
+Wazuh alerts are useful but they require a human to 
+respond. In a real SOC, analysts are overwhelmed with 
+alerts. Automating responses to confirmed threats 
+reduces response time from minutes to milliseconds.
+
+This project adds automated threat removal to my lab — 
+the first step toward a full SOAR implementation.
+
+### How It Works
+
+1. A file is dropped on the monitored Ubuntu endpoint
+2. Wazuh syscheck (realtime) detects it immediately
+3. Wazuh sends the file hash to VirusTotal API
+4. VirusTotal checks against its security vendors
+5. If malicious — active response script deletes it
+6. Alert fires in dashboard confirming deletion
+
+### Test — EICAR File
+
+Used the industry-standard EICAR test file to verify 
+the pipeline. EICAR is a harmless file that every 
+antivirus engine recognises as a test threat.
+
+**Result:**
+- 65/68 VirusTotal engines flagged it malicious
+- File path detected: /root/eicar.com
+- Wazuh fired: "VirusTotal Alert - 65 engines detected"
+- Active response deleted the file automatically
+- "File deleted" confirmation appeared in dashboard
+
+### What This Demonstrates
+- File Integrity Monitoring (FIM) with realtime detection
+- Threat intelligence enrichment via VirusTotal API
+- Automated active response (basic SOAR behaviour)
+- Complete detection-to-response pipeline
+
+### MITRE ATT&CK
+- T1204 — User Execution (malicious file)
+- Response: Automated deletion via active response
+
+### Screenshots
+![VirusTotal EICAR Analysis](images/Virus_Total_-_Eicar_Analysis.png)
+![Wazuh VirusTotal Integration](images/Virus_Total_-_Wazuh_Integration.png)
